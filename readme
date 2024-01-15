@@ -1,0 +1,73 @@
+Explicacion del codigo para la generacion y resolucion de un laberinto
+
+La función 'esValido' es responsable de verificar si una posición (x, y) en el laberinto es válida para ser visitada. 
+Comprueba las siguientes condiciones:
+
+    Dentro de los límites: 'x' debe estar dentro del rango [0, columnas) e 'y' dentro del rango [0, filas). Esto asegura que la posición esté dentro de los límites del laberinto.
+
+    No es una pared: matriz[y][x] debe ser igual a 0. Esto indica que la posición no está bloqueada por una pared y es un espacio vacío.
+
+La función 'imprimirLaberinto' utiliza un bucle anidado para iterar sobre todas las filas y columnas del laberinto.
+
+En cada posición (i, j) de la matriz del laberinto, se realiza una verificación basada en el valor almacenado en esa posición:
+        Si matriz[i][j] es igual a 1, se imprime "##", representando una pared en la consola.
+        Si es igual a 0, se imprime " ", representando un espacio vacío.
+        Si es igual a 2, se imprime "..", representando una posición ya visitada en el camino.
+        Si es igual a 3, se imprime "XX", representando la posición actual.
+
+Después de imprimir cada fila del laberinto, se agrega una nueva línea (\n) para pasar a la siguiente línea en la consola.
+Al final, se imprime una línea en blanco (\n), proporcionando un espacio entre el laberinto y otros mensajes o información en la consola.
+
+La funcion 'resolverLaberintoBFS' utiliza el algoritmo de búsqueda en amplitud (BFS) para encontrar la salida en un laberinto representado por una matriz.
+
+    Direcciones de movimiento:
+        movX y movY definen las direcciones posibles de movimiento en el laberinto. En este caso, se permite moverse arriba, abajo, izquierda y derecha.
+
+    Inicialización de la cola y la matriz de visitados:
+        cola es una cola que se utiliza para almacenar las posiciones que se deben explorar.
+        visitado es una matriz booleana que mantiene un registro de las posiciones que ya han sido visitadas para evitar repeticiones.
+
+    Inserción de la posición de entrada en la cola y marcado como visitado:
+        La posición inicial (entradaY, entradaX) se añade a la cola y se marca como visitada en la matriz visitado.
+
+    Bucle principal (BFS):
+        Mientras la cola no esté vacía, se extrae el frente de la cola (actual) y se marca la posición actual en la matriz del laberinto con 3.
+
+    Exploración de las direcciones:
+        Se exploran las direcciones posibles desde la posición actual (arriba, abajo, izquierda, derecha).
+        Si se encuentra la salida, se marca la posición de salida en la matriz y se imprime el laberinto resuelto.
+        Si la nueva posición es válida y no ha sido visitada, se marca como visitada y se añade a la cola para su exploración posterior.
+
+    Marcado como visitado:
+        La posición actual se marca como visitada (2) después de haber explorado todas las direcciones desde ella.
+
+    Mensaje si no se encuentra la salida:
+        Si se recorre todo el laberinto y no se encuentra la salida, se imprime un mensaje indicando que no se encontró salida.
+    
+La función 'generarLaberinto' crea un laberinto aleatorio con ciertas características y luego intenta resolverlo utilizando el algoritmo BFS.
+
+    Inicialización de la matriz del laberinto:
+        Se crea una matriz para representar el laberinto. Se inicializa con todas las celdas como espacios vacíos (0).
+
+    Cálculo de la densidad y número de paredes:
+        Se calcula la densidad ajustada multiplicando las filas, columnas y densidad original. Luego, se utiliza para determinar el número de paredes (FParedes).
+
+    Establecimiento de valores en los bordes:
+        Se establecen las paredes en los bordes de la matriz, marcando las celdas correspondientes con el valor 1.
+
+    Generación del laberinto:
+        Se utiliza un bucle para agregar paredes al laberinto de manera aleatoria.
+        Para cada pared, se eligen aleatoriamente una posición (x, y) en las columnas y filas internas, respectivamente.
+        Se asegura que las posiciones sean pares para facilitar la generación.
+        Se establece una pared en la posición (y, x) y se añaden paredes adicionales en puntos adyacentes y en el punto medio.
+
+    Añadir entrada y salida:
+        Se eligen posiciones aleatorias para la entrada y salida en las filas internas.
+        La entrada se establece en la pared izquierda (matriz[entrada][0] = 0) y la salida en la pared derecha (matriz[salida][columnas - 1] = 0).
+
+    Resolver el laberinto:
+        Se utiliza la función resolverLaberintoBFS para intentar encontrar la salida del laberinto desde la entrada (asumiendo que la entrada está en la columna 0).
+
+    Liberar memoria:
+        Se libera la memoria utilizada por la matriz del laberinto para evitar fugas de memoria.
+
